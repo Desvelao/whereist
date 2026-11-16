@@ -1,7 +1,6 @@
 # AGENTS.md
 
-Guidance for AI coding agents working in this repository. `README.md` is for humans; the product plan is
-`Where Is It — Android app plan.md`.
+Guidance for AI coding agents working in this repository. `README.md` is for humans.
 
 ## What this is
 

@@ -7,6 +7,9 @@ workflow publishes the matching section as the GitHub Release notes.
 
 ## [Unreleased]
 
+### Changed
+- Release notes now include the signing certificate SHA-256 digest, and the README explains how to verify a download.
+
 ### Fixed
 - Importing a backup now cancels the old reminder alarms, no longer leaves photos half-copied, and merges places with the same name under one parent.
 - Reminders are no longer lost when notifications are off (they stay, and the reminder dialog warns about it), and they are rescheduled after an app update.

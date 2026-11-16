@@ -2,7 +2,7 @@
 
 Native Android (Kotlin, Jetpack Compose, Room) app to save where a thing is and find it again with one search.
 Fully offline: the manifest does not declare `INTERNET`. Everything builds inside Docker; nothing but Docker is
-needed on the host. The product plan is in `Where Is It — Android app plan.md`.
+needed on the host.
 
 ## Commands
 
@@ -26,7 +26,7 @@ environment variable, then the tracked `app.properties`, then the default.
 
 | Parameter | `app.properties` | Default |
 |---|---|---|
-| `APP_NAME` | `Where Is It` | `Locator` |
+| `APP_NAME` | `WhereIst` | `Locator` |
 | `APP_ID` | `io.github.desvelao.whereisit` | `app.example.locator` |
 | `APP_URL` | `https://github.com/Desvelao/whereist` | `https://example.com` |
 | `APP_VERSION_NAME` / `APP_VERSION_CODE` | not set (release workflow) | `0.1.0` / `1` |
@@ -70,12 +70,28 @@ a workflow artifact.
 
 ## Download and verify
 
-Each release has the APK, the AAB, the R8 mapping file and a `SHA256SUMS` file.
+Each release on the GitHub Releases page has the APK, the AAB, the R8 mapping file and a `SHA256SUMS` file. The
+release notes also list the SHA-256 digest of the signing certificate.
 
-```bash
-sha256sum --check --ignore-missing SHA256SUMS
-apksigner verify --print-certs <file>.apk | grep 'SHA-256 digest'   # compare with the project's published digest
-```
+1. Download the APK you want and `SHA256SUMS` into the same folder.
+2. Check the file against the checksums. Only the file you downloaded is checked:
+
+   ```bash
+   sha256sum --check --ignore-missing SHA256SUMS      # Linux
+   shasum -a 256 --check --ignore-missing SHA256SUMS  # macOS
+   ```
+
+   Each line must say `OK`. On Windows run `certutil -hashfile <file>.apk SHA256` and compare the result with
+   the line for that file in `SHA256SUMS`. If it does not match, delete the file and download it again.
+3. Optional, stronger: check who signed it. The checksum only proves the file was not damaged or changed after
+   it was published; the signature proves it comes from the project's key. With the Android SDK build-tools:
+
+   ```bash
+   apksigner verify --print-certs <file>.apk | grep 'certificate SHA-256 digest'
+   ```
+
+   The digest must equal the one in the release notes. Keep the first digest you trust: a later release signed
+   by a different key is not an update from the same author.
 
 Uninstall a debug build before installing a release build, because their signatures differ.
 

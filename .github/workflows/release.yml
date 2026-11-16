@@ -113,6 +113,40 @@ jobs:
           (cd dist && sha256sum -- * > "$RUNNER_TEMP/SHA256SUMS")
           mv "$RUNNER_TEMP/SHA256SUMS" dist/SHA256SUMS
           cat dist/SHA256SUMS
+          # Fail the build if the checksum file does not verify what it describes.
+          (cd dist && sha256sum --check SHA256SUMS)
+
+      - name: Signing certificate digest
+        id: cert
+        env:
+          FILE_NAME: ${{ steps.version.outputs.file_name }}
+          APP_SLUG: ${{ github.event.repository.name }}
+        run: |
+          set -euo pipefail
+          apksigner=$(find "${ANDROID_HOME:-${ANDROID_SDK_ROOT:-}}/build-tools" -name apksigner -type f | sort -V | tail -n1)
+          if [[ -z "$apksigner" ]]; then
+            echo "::error::apksigner not found in the Android SDK build-tools"
+            exit 1
+          fi
+          apk="dist/${APP_SLUG}-${FILE_NAME}.apk"
+          "$apksigner" verify --print-certs "$apk" > "$RUNNER_TEMP/certs.txt"
+          digest=$(grep -m1 'certificate SHA-256 digest' "$RUNNER_TEMP/certs.txt" | awk '{print $NF}')
+          if [[ -z "$digest" ]]; then
+            echo "::error::Could not read the signing certificate digest"
+            exit 1
+          fi
+          echo "Signing certificate SHA-256: $digest"
+          {
+            echo
+            echo "## Verify the download"
+            echo
+            echo "Signing certificate SHA-256 digest:"
+            echo
+            echo "\`$digest\`"
+            echo
+            echo "Check the files against \`SHA256SUMS\` and compare this digest with the output of"
+            echo "\`apksigner verify --print-certs <file>.apk\` (see the README, Download and verify)."
+          } > "$RUNNER_TEMP/verify-notes.md"
 
       - name: Extract release notes
         if: steps.version.outputs.is_release == 'true'
@@ -129,6 +163,7 @@ jobs:
             echo "::error::The CHANGELOG section for $HEADING is empty"
             exit 1
           fi
+          cat "$RUNNER_TEMP/verify-notes.md" >> release-notes.md
 
       - uses: actions/upload-artifact@v4
         with:
