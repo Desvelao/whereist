@@ -4,6 +4,16 @@ Native Android (Kotlin, Jetpack Compose, Room) app to save where a thing is and 
 Fully offline: the manifest does not declare `INTERNET`. Everything builds inside Docker; nothing but Docker is
 needed on the host.
 
+## Screenshots
+
+| Find it with one search | Save where it is | Update where it is |
+|---|---|---|
+| <img src="docs/screenshot/home.png" width="240" alt="Home screen listing items with their current location"> | <img src="docs/screenshot/add-item.png" width="240" alt="New item form with a name and a location"> | <img src="docs/screenshot/update-location.png" width="240" alt="Sheet to save the new location of an item"> |
+
+| Search | Places | Settings |
+|---|---|---|
+| <img src="docs/screenshot/search.png" width="240" alt="Search results for the word key"> | <img src="docs/screenshot/places.png" width="240" alt="Place Home with Bedroom, Garage and Kitchen inside"> | <img src="docs/screenshot/settings.png" width="240" alt="Settings with theme, language, quick save and backup"> |
+
 ## Commands
 
 ```bash
