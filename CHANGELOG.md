@@ -7,6 +7,8 @@ workflow publishes the matching section as the GitHub Release notes.
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-16
+
 ### Changed
 - Release notes now include the signing certificate SHA-256 digest, and the README explains how to verify a download.
 
@@ -67,4 +69,5 @@ workflow publishes the matching section as the GitHub Release notes.
 - Project scaffold: empty Compose app with Room, English and Spanish strings and a map-pin launcher icon.
 - Fully offline: no internet permission, analytics or ads.
 
-[Unreleased]: https://github.com/Desvelao/whereist/commits/HEAD
+[Unreleased]: https://github.com/Desvelao/whereist/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/Desvelao/whereist/releases/tag/v0.1.0
