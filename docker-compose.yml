@@ -1,0 +1,23 @@
+services:
+  dev:
+    build: .
+    image: android-dev
+    user: "${UID:-1000}:${GID:-1000}"
+    network_mode: host          # lets the container's adb reach a host emulator (Linux only)
+    environment:
+      - HOME=/gradle
+      # App parameters (all optional; neutral defaults live in the Gradle build)
+      - APP_NAME
+      - APP_ID
+      - APP_URL
+      - APP_VERSION_NAME
+      - APP_VERSION_CODE
+      - SIGNING_KEYSTORE
+      - SIGNING_STORE_PASSWORD
+      - SIGNING_KEY_ALIAS
+      - SIGNING_KEY_PASSWORD
+    volumes:
+      - .:/workspace
+      - gradle-cache:/gradle
+volumes:
+  gradle-cache:

@@ -1,0 +1,31 @@
+build/
+.gradle/
+.kotlin/
+local.properties
+*.jks
+*.keystore
+keystore.properties
+.idea/
+*.iml
+.env
+
+# Added by git-repo-prep
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+*.apk
+*.aab
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+.claude/settings.local.json
+*.bak-*
+
+# Task board (personal tooling)
+tack.yaml
+tasks.csv
