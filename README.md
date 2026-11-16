@@ -27,7 +27,7 @@ environment variable, then the tracked `app.properties`, then the default.
 | Parameter | `app.properties` | Default |
 |---|---|---|
 | `APP_NAME` | `WhereIst` | `Locator` |
-| `APP_ID` | `io.github.desvelao.whereisit` | `app.example.locator` |
+| `APP_ID` | `io.github.desvelao.whereist` | `app.example.locator` |
 | `APP_URL` | `https://github.com/Desvelao/whereist` | `https://example.com` |
 | `APP_VERSION_NAME` / `APP_VERSION_CODE` | not set (release workflow) | `0.1.0` / `1` |
 
